@@ -14,31 +14,42 @@ socket.on('disconnect', () => {
  console.log('Disconnected from proxy server');
 });
 
-socket.on('new-request', ({ pathName, server, method, params, clientId }) => {
- console.log('new request', { pathName, server, method, params, clientId });
- let urlToRequest;
- if (server === 'server1') urlToRequest = localUrl1 + pathName;
- else urlToRequest = localUrl2 + pathName;
+socket.on(
+ 'new-request',
+ ({ pathName, server, method, params, clientId, body }) => {
+  console.log('new request', {
+   pathName,
+   server,
+   method,
+   params,
+   clientId,
+   body,
+  });
+  let urlToRequest;
+  if (server === 'server1') urlToRequest = localUrl1 + pathName;
+  else urlToRequest = localUrl2 + pathName;
 
- if (method === 'get') {
-  superagent
-   .get(urlToRequest)
-   .query(params)
-   .end((err, response) => {
-    if (err) {
-     socket.emit('new-response', { response: null, clientId });
-    }
-    socket.emit('new-response', { response, clientId });
-   });
- } else if (method === 'post') {
-  superagent
-   .post(urlToRequest)
-   .query(params)
-   .end((err, response) => {
-    if (err) {
-     socket.emit('new-response', { response: null, clientId });
-    }
-    socket.emit('new-response', { response, clientId });
-   });
- }
-});
+  if (method === 'get') {
+   superagent
+    .get(urlToRequest)
+    .query(params)
+    .end((err, response) => {
+     if (err) {
+      socket.emit('new-response', { response: null, clientId });
+     }
+     socket.emit('new-response', { response, clientId });
+    });
+  } else if (method === 'post') {
+   superagent
+    .post(urlToRequest)
+    .send(body)
+    .query(params)
+    .end((err, response) => {
+     if (err) {
+      socket.emit('new-response', { response: null, clientId });
+     }
+     socket.emit('new-response', { response, clientId });
+    });
+  }
+ },
+);

@@ -14,7 +14,7 @@ const clientToRespond = {};
 
 //can use this for making multiple server live here
 //i have taken only for two server.
-app.get('/server1*', (req, res) => {
+app.get('/server1/*', (req, res) => {
  const clientId = uuid();
  let pathName = url.parse(req.url).pathname.split('/');
  pathName.splice(1, 1);
@@ -25,6 +25,7 @@ app.get('/server1*', (req, res) => {
   pathName,
   server: 'server1',
   method: 'get',
+  body: req.body,
   params: req.query,
   clientId,
  };
@@ -38,7 +39,7 @@ app.get('/server1*', (req, res) => {
  return;
 });
 
-app.post('/server1*', (req, res) => {
+app.post('/server1/*', (req, res) => {
  const clientId = uuid();
  let pathName = url.parse(req.url).pathname.split('/');
  pathName.splice(1, 1);
@@ -48,6 +49,7 @@ app.post('/server1*', (req, res) => {
   pathName,
   server: 'server1',
   method: 'get',
+  body: req.body,
   params: req.query,
   clientId,
  };
@@ -58,7 +60,7 @@ app.post('/server1*', (req, res) => {
  return;
 });
 
-app.post('/server2*', (req, res) => {
+app.post('/server2/*', (req, res) => {
  const clientId = uuid();
  let pathName = url.parse(req.url).pathname.split('/');
  pathName.splice(1, 1);
@@ -69,6 +71,7 @@ app.post('/server2*', (req, res) => {
   server: 'server2',
   method: 'get',
   params: req.query,
+  body: req.body,
   clientId,
  };
 
@@ -78,7 +81,7 @@ app.post('/server2*', (req, res) => {
  return;
 });
 
-app.get('/server2*', (req, res) => {
+app.get('/server2/*', (req, res) => {
  const clientId = uuid();
  let pathName = url.parse(req.url).pathname.split('/');
  pathName.splice(1, 1);
@@ -89,6 +92,7 @@ app.get('/server2*', (req, res) => {
   server: 'server2',
   method: 'get',
   params: req.query,
+  body: req.body,
   clientId,
  };
 

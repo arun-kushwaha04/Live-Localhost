@@ -1,4 +1,4 @@
-const proxySeverUrl = '';
+const proxySeverUrl = 'https://localhost-to-live-iull.onrender.com';
 
 const localUrl1 = 'http://localhost:5001';
 const localUrl2 = 'http://localhost:5002';
@@ -14,14 +14,25 @@ socket.on('disconnect', () => {
  console.log('Disconnected from proxy server');
 });
 
-socket.on('new-request', ({ pathName, server, methods, params, clientId }) => {
+socket.on('new-request', ({ pathName, server, method, params, clientId }) => {
+ console.log('new request', { pathName, server, method, params, clientId });
  let urlToRequest;
  if (server === 'server1') urlToRequest = localUrl1 + pathName;
  else urlToRequest = localUrl2 + pathName;
 
- if (methods === 'get') {
+ if (method === 'get') {
   superagent
    .get(urlToRequest)
+   .query(params)
+   .end((err, response) => {
+    if (err) {
+     socket.emit('new-response', { response: null, clientId });
+    }
+    socket.emit('new-response', { response, clientId });
+   });
+ } else if (method === 'post') {
+  superagent
+   .post(urlToRequest)
    .query(params)
    .end((err, response) => {
     if (err) {

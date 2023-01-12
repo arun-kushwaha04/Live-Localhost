@@ -7,6 +7,8 @@ Make your local host live. Inspried from free services like localtunnel.
 While localtunnel is a great open sevrvice by your live url will be varying always. I tried to solve this problem using this project.
 
 ## Basic architecture
+![General scenario](https://user-images.githubusercontent.com/73020364/212091384-986a1ea0-2012-4b7a-ba94-081706a9d52a.png)
+![LocalHost to live in use](https://user-images.githubusercontent.com/73020364/212091916-ee9876fa-e259-4b7f-ab0d-889e4d890fb5.png)
 
 ## How to use
 

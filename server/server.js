@@ -105,13 +105,14 @@ app.get('/server2/*', (req, res) => {
 io.on('connection', (socket) => {
  console.log('a node connected');
  socket.on('new-response', ({ response, clientId }) => {
-  if (!response) {
-   clientToRespond[clientId].status(503).json({
-    msg: 'Internal server error',
-   });
+  console.log(response);
+  if (response == null) {
+   clientToRespond[clientId].send('Internal server error');
+  } else {
+   clientToRespond[clientId].json(response);
   }
-  clientToRespond[clientId].json(response);
   delete clientToRespond[clientId];
+  return;
  });
 });
 

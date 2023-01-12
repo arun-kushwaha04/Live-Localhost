@@ -7,11 +7,11 @@ app.use(cors());
 app.use(express.json());
 
 app.get('/', (req, res) => {
- res.send('Hello from local host /');
+ res.json({ msg: 'Hello from local host /' });
 });
 
 app.get('/test', (req, res) => {
- res.send('Hello from local host /test');
+ res.json({ msg: 'Hello from local host /test' });
 });
 
 app.listen(5001, () => {

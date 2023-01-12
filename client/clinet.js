@@ -16,7 +16,7 @@ socket.on('disconnect', () => {
 
 socket.on(
  'new-request',
- ({ pathName, server, method, params, clientId, body }) => {
+ async ({ pathName, server, method, params, clientId, body }) => {
   console.log('new request', {
    pathName,
    server,
@@ -30,26 +30,22 @@ socket.on(
   else urlToRequest = localUrl2 + pathName;
 
   if (method === 'get') {
-   superagent
-    .get(urlToRequest)
-    .query(params)
-    .end((err, response) => {
-     if (err) {
-      socket.emit('new-response', { response: null, clientId });
-     }
-     socket.emit('new-response', { response, clientId });
-    });
+   try {
+    const response = await fetch(urlToRequest);
+    socket.emit('new-response', { response, clientId });
+   } catch (error) {
+    socket.emit('new-response', { response: null, clientId });
+   }
   } else if (method === 'post') {
-   superagent
-    .post(urlToRequest)
-    .send(body)
-    .query(params)
-    .end((err, response) => {
-     if (err) {
-      socket.emit('new-response', { response: null, clientId });
-     }
-     socket.emit('new-response', { response, clientId });
+   try {
+    const response = await fetch(urlToRequestm, {
+     method: 'POST',
+     body: body,
     });
+    socket.emit('new-response', { response, clientId });
+   } catch (error) {
+    socket.emit('new-response', { response: null, clientId });
+   }
   }
  },
 );

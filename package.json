@@ -1,0 +1,28 @@
+{
+    "name": "live-localhost",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "start": "node server"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/arun-kushwaha04/Live-Localhost.git"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/arun-kushwaha04/Live-Localhost/issues"
+    },
+    "homepage": "https://github.com/arun-kushwaha04/Live-Localhost#readme",
+    "dependencies": {
+        "cors": "^2.8.5",
+        "express": "^4.18.2",
+        "socket.io": "^4.5.4",
+        "url": "^0.11.0",
+        "uuid": "^9.0.0",
+        "uuidv4": "^6.2.13"
+    }
+}

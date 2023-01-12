@@ -1,0 +1,15 @@
+{
+    "name": "client",
+    "version": "1.0.0",
+    "description": "",
+    "main": "clinet.js",
+    "scripts": {
+        "start": "node client"
+    },
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+        "socket.io-client": "^4.5.4",
+        "superagent": "^8.0.6"
+    }
+}

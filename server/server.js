@@ -110,7 +110,7 @@ io.on('connection', (socket) => {
     msg: 'Internal server error',
    });
   }
-  clientToRespond[clientId].send(response);
+  clientToRespond[clientId].json(response);
   delete clientToRespond[clientId];
  });
 });
